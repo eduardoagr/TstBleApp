@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="TstBleApp.Views.BluetoothPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ble="clr-namespace:Plugin.BLE.Abstractions.Contracts;assembly=Plugin.BLE"
+    xmlns:vm="clr-namespace:TstBleApp.ViewModels"
+    Title="BluetoothPage"
+    x:DataType="vm:BluetoothPageViewModel">
+
+    <Grid
+        Padding="20"
+        RowDefinitions="Auto,Auto,Auto,*"
+        RowSpacing="10">
+
+        <Label
+            Grid.Row="0"
+            FontSize="18"
+            Text="{Binding Status}" />
+
+        <Button
+            Grid.Row="1"
+            Command="{Binding StartScanCommand}"
+            Text="Start Scan" />
+
+        <Button
+            Grid.Row="2"
+            Command="{Binding StopScanCommand}"
+            Text="Stop Scan" />
+
+        <CollectionView Grid.Row="3" ItemsSource="{Binding Devices}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="ble:IDevice">
+                    <Border Padding="5">
+                        <HorizontalStackLayout Padding="10">
+                            <Label Text="{Binding Name}" />
+                            <Label Margin="10,0,0,0" Text="{Binding Id}" />
+                            <Button Command="{x:Binding PrintCommand, Source={x:RelativeSource AncestorType={x:Type vm:BluetoothPageViewModel}}}" Text="Print" />
+                        </HorizontalStackLayout>
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="16" />
+                        </Border.StrokeShape>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{x:Binding ConnectCommand, Source={x:RelativeSource AncestorType={x:Type vm:BluetoothPageViewModel}}}" CommandParameter="{x:Binding}" />
+                        </Border.GestureRecognizers>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout ItemSpacing="5" Orientation="Vertical" />
+            </CollectionView.ItemsLayout>
+        </CollectionView>
+
+    </Grid>
+</ContentPage>

@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="TstBleApp.csproj">
+    <Deploy Solution="Debug|*" />
+  </Project>
+</Solution>
