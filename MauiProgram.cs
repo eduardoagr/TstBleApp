@@ -2,6 +2,11 @@
 
 using System.Text;
 
+using TstBleApp.Interfaces;
+
+#if WINDOWS
+using TstBleApp.Platforms.Windows;
+#endif
 using TstBleApp.ViewModels;
 using TstBleApp.Views;
 
@@ -23,10 +28,15 @@ namespace TstBleApp {
 #if DEBUG
             builder.Logging.AddDebug();
 #endif
-            builder.Services.AddSingleton<BluetoothPage>();
+            builder.Services.AddSingleton<PrintPage>();
 
-            builder.Services.AddSingleton<BluetoothPageViewModel>();
+            builder.Services.AddSingleton<PrintPageViewModel>();
 
+#if WINDOWS
+
+            builder.Services.AddSingleton<IPrinterService, PrinterService>();
+
+#endif
             return builder.Build();
         }
     }

@@ -8,7 +8,7 @@
 
     <ShellContent
         Title="Home"
-        ContentTemplate="{DataTemplate views:BluetoothPage}"
-        Route="MainPage" />
+        ContentTemplate="{DataTemplate views:PrintPage}"
+        Route="PrintPage" />
 
 </Shell>
